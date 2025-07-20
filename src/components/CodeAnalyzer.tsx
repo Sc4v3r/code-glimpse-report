@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { ProcessedFile } from './FileUpload';
 
 export interface LanguageStats {
   files: number;
@@ -167,7 +168,7 @@ const analyzeFileContent = (content: string, filename: string, language: string)
   };
 };
 
-export const useCodeAnalyzer = (files: File[]) => {
+export const useCodeAnalyzer = (files: ProcessedFile[]) => {
   return useMemo(async (): Promise<AnalysisResult> => {
     const fileAnalyses: Array<{
       name: string;
@@ -182,9 +183,8 @@ export const useCodeAnalyzer = (files: File[]) => {
     
     for (const file of files) {
       try {
-        const content = await file.text();
         const language = getLanguageFromExtension(file.name);
-        const analysis = analyzeFileContent(content, file.name, language);
+        const analysis = analyzeFileContent(file.content, file.name, language);
         
         fileAnalyses.push(analysis);
         

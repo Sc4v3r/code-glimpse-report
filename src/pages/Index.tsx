@@ -2,19 +2,19 @@ import { useState, useEffect } from 'react';
 import { Code, BarChart3, FileText, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { FileUpload } from '@/components/FileUpload';
+import { FileUpload, ProcessedFile } from '@/components/FileUpload';
 import { AnalysisResults } from '@/components/AnalysisResults';
 import { useCodeAnalyzer, AnalysisResult } from '@/components/CodeAnalyzer';
 import { useToast } from '@/hooks/use-toast';
 
 const Index = () => {
-  const [files, setFiles] = useState<File[]>([]);
+  const [files, setFiles] = useState<ProcessedFile[]>([]);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analysisResult, setAnalysisResult] = useState<AnalysisResult | null>(null);
   const { toast } = useToast();
   const analyzer = useCodeAnalyzer(files);
 
-  const handleFilesSelected = (selectedFiles: File[]) => {
+  const handleFilesSelected = (selectedFiles: ProcessedFile[]) => {
     setFiles(selectedFiles);
     setAnalysisResult(null);
   };
